@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mx-auto p-5">
+    <div class="flex justify-center items-center">
+        <div class="w-96 border shadow-lg p-5 rounded-lg">
+            <h5 class="uppercase text-center mb-3 fw-medium">Upload Multiple Image</h5>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" class="file-input w-full max-w-xs rounded-none" name="documents" multiple />
+                <button type="submit" class="btn btn-success w-full rounded-none">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-2 mt-5">
+        {% for image in images %}
+        <div class="card bg-base-100 shadow-xl w-80 h-80">
+            <figure class="px-10 pt-10"><img src="{{image.file.url}}" class="rounded-xl h-50" alt="images" /></figure>
+            <div class="card-body">
+                <h2 class="card-title">{{image.uploaded_at}}</h2>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
